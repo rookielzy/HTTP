@@ -12,11 +12,11 @@
 
 ## HTTP definition HTTP的定义
 
-[Tim Berners-Lee]('https://en.wikipedia.org/wiki/Tim_Berners-Lee')， `HTTP` 的创始人，同样也是万维网发明人之一。其中HTTP发展过程中有着重大贡献之一的人就是[Roy Fielding]('https://en.wikipedia.org/wiki/Roy_Fielding')，同时他也是　`REST` 架构风格的创始人。
+[Tim Berners-Lee]('https://en.wikipedia.org/wiki/Tim_Berners-Lee')， `HTTP` 的创始人，同样也是万维网发明人之一。其中HTTP发展过程中有着重大贡献之一的人就是[Roy Fielding]('https://en.wikipedia.org/wiki/Roy_Fielding')，同时他也是 `REST` 架构风格的创始人。
 
 <b>The Hypertext Transfer Protocol 超文本传输协议</b>是应用之间可以互相通信的一种协议。本质上来说， `HTTP` 负责客户端和服务器之间的所有互联网文件的收发，其中包括了HTML文件，图像文件，文本文件，多媒体文件以及它们之间的所有东西，同时它可以快速可靠地实现相应地操作。
 
-`HTTP` 是应用协议，而不是传输协议，因为它被用于应用层中地通信。为了更直观地观察网络之间通信，我们可以参考下图：
+`HTTP` 是应用协议，而不是传输协议，因为它被用于应用层中的通信。为了更直观地观察网络之间通信，我们可以参考下图：
 
 <div align=center>
     <img src="img/Network-stack.png" />
@@ -90,7 +90,7 @@ Cache-Control: no-cache
 
 第一行为保留的请求行。它由请求方法（`request method`）名字，请求统一资源标识符（`request URI`）和HTTP版本号（HTTP version）组成。
 
-接下来的几代表请求头(`request headers`)。请求头为请求提供了额外的信息，比如请求期望的响应内容类型，验证信息等等。
+接下来的几行代表请求头(`request headers`)。请求头为请求提供了额外的信息，比如请求期望的响应内容类型，验证信息等等。
 
 对于 `GET` 请求，它就只包括上述内容。对于 `POST` 请求，它还可以拥有一个附加了额外信息的主体。在这个例子中，这是个一个JSON消息，其中包含了应该如何为`URI`中给定的`repo`创建`GitHub webhook`的附加信息。该消息是`webhook`创建所必需的，因此我们要使用`POST`请求将该信息提供给`GitHub API`。
 
@@ -152,7 +152,7 @@ HTTP响应参考： [https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html]('ht
 
 MIME类型是一种描述互联网上扽文件类型的标准。你的浏览器有着一个MIME类型的列表，同样适用于Web服务器。通过这种方式，文件可以顺利收发无论在什么操作系统上。
 
-有趣的是MIME实际上表示为多用途互联网邮件扩展（Multipurpose Internet Mail Extension），因为一开始MIME是被设计为多媒体邮件所使用的。后来它被适配与HTTP协议和其他不同的协议。
+有趣的是MIME实际上表示为多用途互联网邮件扩展（Multipurpose Internet Mail Extension），因为一开始MIME是被设计为多媒体邮件所使用的。后来它被适配于HTTP协议和其他不同的协议。
 
 任何MIME类型由`type`类型，`subtype`子类型和一系列的`optional parameters`可选参数组成，并遵循如下格式：`type/subtype; optional parameters`。
 
@@ -176,3 +176,46 @@ HTTP的请求方法（也可以把它看作动词）定义将对资源执行的�
 
 想要查看每种请求方法是干什么的可以参考：[HTTP reference]('https://www.code-maze.com/the-http-reference#requestmethods')
 
+## Header 标头
+
+标头字段由冒号分隔的名称-值字段组成，你可以在请求或响应消息的第一行后找到它。它们为HTTP消息提供了更多的上下文，并且确保客户端和服务器能够正确地了解请求或响应地性质。
+
+标头总共有五种类型：
+
+* <b>常规标头：</b>这种标头对客户端和服务器都很有用，一个很好的例子就是时间标头字段，提供了消息生成的时间信息。
+
+* <b>请求标头：</b>请求消息特有。它们为服务器提供了一些附加信息。例如，`Accept: */*`标头字段告诉服务器客户端可以接受任何媒体类型。
+
+* <b>响应标头：</b>响应消息特有。它们为客户端提供了一些附加信息。例如，`Allow: GET, HEAD, PUT`标头字段告诉客户端这些请求方法可以用于请求资源上。
+
+* <b>实例标头：</b>这种标头处理实例体。例如，`Content-Type: text/html`标头告诉应用数据是HTML文档。
+
+* <b>拓展标头：</b>这些是有应用开发人员构建的非标准标头。它们不是HTTP的一部分，但也可以接受它。
+
+你可以在如下链接里找到常用的请求和响应标头参考：[HTTP Reference]('https://www.code-maze.com/the-http-reference#headers')
+
+## Status codes 状态码
+
+<div align="center">
+  <img src="img/tumblr_ntqxdoCovo1udik9co2_1280-1024x683.jpg">
+</div>
+
+状态码由三位数组成，用来表示请求的结果。通过一些解释短语可使其变为人为可读的状态码。
+
+例如：
+
+* 200 OK
+* 404 Not Found
+* 500 Internal Server Error
+
+状态码被分为五大类。
+
+状态码的类别和所有状态码所表达的意思都可以在[HTTP Reference]('https://www.code-maze.com/the-http-reference#statuscodes')里找到。
+
+可以参考[HTTP CAT]('http.cat')
+
+## Conclusion 总结
+
+通过学习HTTP获得的知识并不能帮助你直接解决某些问题，但它会让你了解互联网通信的基本原理，然后你可以将其应用在比HTTP更复杂的问题上。无论是`REST`，`APIs`，网页应用开发还是网络，你现在都能够更有信息去解决这些问题了。
+
+当然，`HTTP`是一个很大的话题，后面还有更多的知识点地学习。
